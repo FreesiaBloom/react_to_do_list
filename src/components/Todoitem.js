@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import './TodoComponents.css'
+import './TodoComponents.scss'
 
 export class Todoitem extends Component {
     getStyle = () => {

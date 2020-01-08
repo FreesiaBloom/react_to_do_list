@@ -5,9 +5,6 @@ import './TodoComponents.css'
 export class Todoitem extends Component {
     getStyle = () => {
         return {
-            backgroundColor: '#f4f4f4',
-            padding: '10px',
-            borderBottom: '1px #ccc solid',
             textDecoration: this.props.todo.completed ? 'line-through' : 'none'
         }
     }
@@ -15,11 +12,12 @@ export class Todoitem extends Component {
     render() {
         const { id, title } = this.props.todo;
         return (
-            <div style={this.getStyle()} className="todoItem">
-                <p>
+            <div className="todoItem">
+                <p style={this.getStyle()}>
                     <input type='checkbox' name={title} onChange={this.props.markComplete.bind(this, id)}></input>
                     {title}
                 </p>
+                <button onClick={this.props.delTodo.bind(this,id)}>x</button>
             </div>
         )
     }

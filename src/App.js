@@ -4,6 +4,7 @@ import Todos from './components/Todos';
 import Header from './components/layout/Header'
 import AddTodo from './components/AddTodo'
 import { MdAdd } from "react-icons/md";
+import uuid from 'uuid';
 
 class App extends Component {
   constructor(props) {
@@ -12,22 +13,22 @@ class App extends Component {
       opened: true,
       todos: [
         {
-          id: 1,
+          id: uuid.v4(),
           title: 'Go for a walk',
           completed: false
         },
         {
-          id: 2,
+          id: uuid.v4(),
           title: 'Go to a doctor',
           completed: true
         },
         {
-          id: 3,
+          id: uuid.v4(),
           title: 'Do shopping',
           completed: false
         },
         {
-          id: 4,
+          id: uuid.v4(),
           title: 'Pet a dog',
           completed: true
         }
@@ -66,6 +67,17 @@ class App extends Component {
 
   }
 
+  addTodo = (title, date, time) => {
+    const newTodo = {
+      id: uuid.v4(),
+      title: title,
+      completed: false,
+    }
+    this.setState( {
+      todos: [...this.state.todos, newTodo]
+    })
+  }
+
   render() {
     const { opened } = this.state;
     return (
@@ -81,7 +93,7 @@ class App extends Component {
           </div>
           {opened && (
             <div className="AddTodo">
-              <AddTodo />
+              <AddTodo addTodo={this.addTodo}/>
             </div>
           )}
 

@@ -1,0 +1,6 @@
+.todoItem p {
+    margin: 0;
+}
+.todoItem p input{
+    margin-right: 8px;
+}

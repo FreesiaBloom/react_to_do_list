@@ -11,7 +11,10 @@ export class AddTodo extends Component {
     });
 
     onSubmit = (e) => {
-        if (e.target.value !== null) {
+        console.log(e.target.value);
+        if (e.target.value === undefined) {
+            console.log("target is undefined!");
+        } else if (e.target.value !== null) {
             e.preventDefault();
             var today = new Date();
             var date = today.getFullYear()+'/'+(today.getMonth()+1)+'/'+today.getDate();

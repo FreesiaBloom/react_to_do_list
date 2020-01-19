@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import './TodoComponents.scss'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import '../styling/todoComponentsStyle.scss';
 import { IoIosRemoveCircleOutline, IoMdRemoveCircle } from "react-icons/io";
 
 export class Todoitem extends Component {

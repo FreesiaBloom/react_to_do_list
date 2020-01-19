@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import './App.scss';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
+import './styling/appStyle.scss';
 import Todos from './components/Todos';
-import Header from './components/layout/Header'
-import AddTodo from './components/AddTodo'
+import Header from './components/layout/Header';
+import NavbarNavigation from './components/layout/NavbarNavigation';
+import AddTodo from './components/AddTodo';
+import About from './components/pages/About';
 import { MdAdd } from "react-icons/md";
 import uuid from 'uuid';
 
@@ -10,6 +13,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      pageTitle: '',
       opened: true,
       todos: [
         {
@@ -34,10 +38,10 @@ class App extends Component {
         }
       ]
     };
-    this.toggleBox = this.toggleBox.bind(this);
+    this.openAddTodoComponent = this.openAddTodoComponent.bind(this);
   }
 
-  toggleBox() {
+  openAddTodoComponent() {
     const { opened } = this.state;
 
     this.setState({
@@ -81,24 +85,37 @@ class App extends Component {
   render() {
     const { opened } = this.state;
     return (
-      <div className="App">
-        <div className="container">
+      <Router>
+        <div className="App">
+          <NavbarNavigation />
+          <div className="container">
+            <Route exact path="/" render={props => (
+              <React.Fragment>
+                <Header pageTitle={'Todo List'}/>
+                {/* List of todo items */}
+                <div className="TodoList">
+                  <Todos todos={this.state.todos} markComplete={this.markComplete} delTodo={this.delTodo} />
+                  <div className="AddTodoBtn">
+                    {/* MsAdd is a plus icon */}
+                    <button onClick={this.openAddTodoComponent}><MdAdd /></button>
+                  </div>
+                </div>
 
-          <Header />
-          <div className="TodoList">
-            <Todos todos={this.state.todos} markComplete={this.markComplete} delTodo={this.delTodo} />
-            <div className="AddTodoBtn">
-              <button onClick={this.toggleBox}><MdAdd /></button>
-            </div>
+                {/* Add new todo items triggered by 'opened' boolean */}
+                {opened && (
+                  <div className="AddTodo">
+                    <AddTodo addTodo={this.addTodo}/>
+                  </div>
+                )}
+              </React.Fragment>
+            )} />
+            <Route path="/about" component={About}>
+              <Header pageTitle={'About'}></Header>
+              <About />
+            </Route>
           </div>
-          {opened && (
-            <div className="AddTodo">
-              <AddTodo addTodo={this.addTodo}/>
-            </div>
-          )}
-
         </div>
-      </div>
+      </Router>
     )
   };
 }
